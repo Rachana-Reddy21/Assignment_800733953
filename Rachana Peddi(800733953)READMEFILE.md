@@ -36,9 +36,15 @@ The above lines would create files for producer and consumer.
 
 int main(int args, char *argv[])
 {
+        pid_t producer_processid;
+        producer_processid=fork();
+        int temp = getppid();
+        printf("Producer is running the process id:%d\n", temp);
         const int size = 4096;
         const char *name="assignment";
         const char *m1 = "Hello My dear Customer(item produced by producer is):";
+        //m1=m1+str(temp);
+
 
         char *m2=argv[1];
 
@@ -55,7 +61,6 @@ ptr+=strlen(m2);
 return 0;
 
 }
-
 ````
 ###consumer.c
 
@@ -100,4 +105,21 @@ consumer: consumer.c
         ./cons
 
 
+````
+Instead of executing make file we can follow the below procedure
+````
+1) Create the files producer.c and consumer.c
+
+Open 2 different tabs for execution
+
+Tab1 :
+stepa---> gcc producer.c -o prod -lrt
+stepb--->  ./prod "value to be passed for the customer or (insertion into buffer)"
+
+
+Tab2:
+
+Now in Tab2 , execute the consumer file as follows
+1)  gcc consumer.c -o cons -lrt
+2) ./cons
 ````
